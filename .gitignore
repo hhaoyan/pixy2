@@ -1,3 +1,12 @@
+*.uvgui.*
+*.uvguix.*
+*.scr
+*.htm
+*.dep
+*.lib
+*.crf
+*.lst
+*.txt
 *.exe
 *.o
 *.d

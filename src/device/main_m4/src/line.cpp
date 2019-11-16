@@ -12,7 +12,7 @@
 //
 // end license header
 //
-
+#if USE_LINE_MODULE
 #include <new>
 #include <stdio.h>
 #include <stdlib.h>
@@ -3771,4 +3771,4 @@ int line_legoLineData(uint8_t *buf, uint32_t buflen)
 	return 4;
 }
 
-
+#endif

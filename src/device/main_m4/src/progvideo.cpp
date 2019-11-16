@@ -28,7 +28,12 @@
 #include "calc.h"
 #include <string.h>
 
+extern "C"{
+#include <zbar.h>
+}
+
 static uint8_t g_rgbSize = VIDEO_RGB_SIZE;
+static zbar_image_scanner_t *scanner = NULL;
 
 REGISTER_PROG(ProgVideo, PROG_NAME_VIDEO, "continuous stream of raw camera frames", PROG_VIDEO_MIN_TYPE, PROG_VIDEO_MAX_TYPE);
 ProgVideo::ProgVideo(uint8_t progIndex)
@@ -120,6 +125,13 @@ uint32_t getRGB(uint16_t x, uint16_t y, uint8_t sat)
 		return rgb;
 }
 
+static size_t strnlen(const char* data, size_t max){
+	size_t len = 0;
+	while(*data++ && len < max)
+		len++;
+	return len;
+}
+
 int ProgVideo::packet(uint8_t type, const uint8_t *data, uint8_t len, bool checksum)
 {
 	if (type==TYPE_REQUEST_GETRGB)
@@ -142,7 +154,82 @@ int ProgVideo::packet(uint8_t type, const uint8_t *data, uint8_t len, bool check
 		ser_sendResult(rgb, checksum);
 		
 		return 0;
+	} else if (type == TYPE_REQUEST_GETFRAMEBUF) {
+		uint32_t start_addr;
+		uint8_t req_len;
+
+		if (len!=5)
+		{
+			ser_sendError(SER_ERROR_INVALID_REQUEST, checksum);
+			return 0;
+		}
+		
+		start_addr = *(uint32_t *)(data+0);
+		req_len = *(uint8_t *)(data+4);
+		
+		if ((req_len > 249)||
+			(req_len+start_addr > CAM_RES2_WIDTH * CAM_RES2_HEIGHT )){
+				ser_sendError(SER_ERROR_INVALID_REQUEST, checksum);
+				return 0;
+			}
+
+		uint8_t * txData;
+		uint8_t * p = (uint8_t*)SRAM1_LOC + CAM_PREBUF_LEN;
+		ser_getTx(&txData);
+		memcpy(txData, p+start_addr, req_len);
+		ser_setTx(TYPE_RESPONSE_GETFRAMEBUF, req_len, checksum);
+		return 0;
+	} 
+#if USE_QRCODE
+	else if (type == TYPE_REQUEST_QRDECODE) {
+		if(!scanner){
+			scanner = zbar_image_scanner_create();
+			if(!scanner){
+				ser_sendError(SER_ERROR_INVALID_REQUEST, checksum);
+				return 0;
+			}
+			zbar_image_scanner_set_config(scanner, ZBAR_NONE, ZBAR_CFG_ENABLE, 1);
+		}
+		
+		SM_OBJECT->stream = 0; // pause after frame grab is finished
+		
+		uint8_t *cam_data = (uint8_t*)SRAM1_LOC + CAM_PREBUF_LEN;
+		bayer2gray(cam_data, CAM_RES2_WIDTH, CAM_RES2_HEIGHT);
+		
+		zbar_image_t* image = zbar_image_create();
+		zbar_image_set_format(image, *(int*)"Y800");
+		zbar_image_set_size(image, CAM_RES2_WIDTH, CAM_RES2_HEIGHT);
+		zbar_image_set_data(image, cam_data, CAM_RES2_WIDTH*CAM_RES2_HEIGHT, NULL);
+		
+		zbar_scan_image(scanner, image);
+		
+		SM_OBJECT->stream = 1; // resume
+		
+		uint8_t *txData, sendlen = 0;
+		ser_getTx(&txData);
+
+		const zbar_symbol_t *symbol = zbar_image_first_symbol(image);
+		for(;symbol;symbol=zbar_symbol_next(symbol)){
+			int* typ = (int*)txData;
+			uint8_t *len = (uint8_t*)txData;
+			
+			const char* data = zbar_symbol_get_data(symbol);
+			uint8_t symbollen = strnlen(data, 0xf0-5);
+			if(symbollen + 5 + sendlen > 0xf0)
+				break;
+			
+			*typ = (int)zbar_symbol_get_type(symbol);
+			*len = symbollen;
+			memcpy(txData+1, data, symbollen);
+			txData += symbollen+1;
+			sendlen += symbollen+1;
+		}
+		ser_setTx(TYPE_RESPONSE_QRDECODE, sendlen, checksum);
+		zbar_image_destroy(image);
+		
+		return 0;
 	}
+#endif
 	
 	// nothing rings a bell, return error
 	return -1;

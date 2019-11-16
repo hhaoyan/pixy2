@@ -12,7 +12,7 @@
 //
 // end license header
 //
-
+#if USE_LINE_MODULE
 #ifndef _PROGLINE_H
 #define _PROGLINE_H
 
@@ -52,4 +52,5 @@ private:
 };
 
 
+#endif
 #endif

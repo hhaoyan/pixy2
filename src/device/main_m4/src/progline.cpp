@@ -12,7 +12,7 @@
 //
 // end license header
 //
-
+#if USE_LINE_MODULE
 #include <stdio.h>
 #include "progline.h"
 #include "equeue.h"
@@ -174,4 +174,4 @@ void ProgLine::sendLineData(uint8_t requestType, uint8_t typeMap, bool checksum)
 		ser_setTx(TYPE_RESPONSE_GET_FEATURES, res, checksum);
 }
 
-
+#endif

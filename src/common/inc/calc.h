@@ -28,6 +28,7 @@
 
 #define M_PI 3.14159265358979323846 
 
+void bayer2gray(uint8_t* buf_start, uint16_t width, uint16_t height);
 void hsvc(uint8_t r, uint8_t g, uint8_t b, uint8_t *h, uint8_t *s, uint8_t *v, uint8_t *c);
 uint32_t lighten(uint32_t color, uint8_t factor);
 uint32_t saturate(uint32_t color);

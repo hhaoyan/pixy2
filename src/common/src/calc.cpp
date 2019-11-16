@@ -13,7 +13,70 @@
 // end license header
 //
 
+#include <string.h>
 #include "calc.h"
+
+void bayer2gray(uint8_t* buf_start, uint16_t width, uint16_t height){
+	uint8_t *bayer_last_row = new uint8_t[width],
+					*bayer_this_row = new uint8_t[width];
+	uint8_t r, g, b, maxgray = 0;
+	
+	memset(bayer_this_row, 0, sizeof(uint8_t)*width);
+	
+	for(uint16_t y=0;y<height;y++){
+		uint8_t *tmp = bayer_this_row;
+		bayer_this_row = bayer_last_row;
+		bayer_last_row = tmp;
+		
+		memcpy(bayer_this_row, buf_start + y*width, sizeof(uint8_t)*width);
+		for(uint16_t x=0;x<width;x++){
+			uint8_t *pixel = bayer_this_row + x,
+							*pixel_n = buf_start + (y+1)*width + x,
+							*pixel_p = bayer_last_row + x,
+							*gray_pixel = buf_start + y*width + x;
+			
+			if (y&1){
+					if (x&1){
+							r = *pixel;
+							g = (*(pixel-1)+*(pixel+1)+*(pixel_n)+*(pixel_p))>>2;
+							b = (*(pixel_p-1)+*(pixel_p+1)+*(pixel_n-1)+*(pixel_n+1))>>2;
+					} else {
+							r = (*(pixel-1)+*(pixel+1))>>1;
+							g = *pixel;
+							b = (*(pixel_p)+*(pixel_n))>>1;
+					}
+			} else {
+					if (x&1) {
+							r = (*(pixel_p)+*(pixel_n))>>1;
+							g = *pixel;
+							b = (*(pixel-1)+*(pixel+1))>>1;
+					} else {
+							r = (*(pixel_p-1)+*(pixel_p+1)+*(pixel_n-1)+*(pixel_n+1))>>2;
+							g = (*(pixel-1)+*(pixel+1)+*(pixel_n)+*(pixel_p))>>2;
+							b = *pixel;
+					}
+			}
+			
+			*gray_pixel = (uint8_t)(
+				(uint16_t)r*2126/10000+
+				(uint16_t)g*7152/10000+
+				(uint16_t)b*722/10000
+			);
+			maxgray = MAX(maxgray, *gray_pixel);
+		}
+	}
+	
+	// Saturate pic
+	for(uint16_t y=0;y<height;y++)
+	for(uint16_t x=0;x<width;x++){
+		uint8_t* pixel = buf_start + y*width + x;
+		*pixel = (uint8_t)((uint16_t)(*pixel)*255/maxgray);
+	}
+	
+	delete[] (bayer_last_row);
+	delete[] (bayer_this_row);
+	
+}
 
 void hsvc(uint8_t r, uint8_t g, uint8_t b, uint8_t *h, uint8_t *s, uint8_t *v, uint8_t *c)
 {
@@ -109,7 +172,7 @@ uint32_t saturate(uint32_t color)
 
 void interpolate(uint8_t *frame, uint16_t x, uint16_t y, uint16_t width, uint8_t *r, uint8_t *g, uint8_t *b)
 {
-	uint8_t *pixel = frame + y*width + x;
+		uint8_t *pixel = frame + y*width + x;
     if (y&1)
     {
         if (x&1)
@@ -131,7 +194,7 @@ void interpolate(uint8_t *frame, uint16_t x, uint16_t y, uint16_t width, uint8_t
         {
             *r = (*(pixel-width)+*(pixel+width))>>1;
             *g = *pixel;
-			*b = (*(pixel-1)+*(pixel+1))>>1;
+						*b = (*(pixel-1)+*(pixel+1))>>1;
         }
         else
         {

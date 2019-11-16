@@ -641,7 +641,9 @@ void exec_loadParams()
 #ifndef LEGO
 	rcs_loadParams();
 #endif
+#if USE_LINE_MODULE
 	line_loadParams(exec_getProgIndex(PROG_NAME_LINE));
+#endif
 	loadParams(); // local
 }
 

@@ -10,12 +10,13 @@
       <TargetName>Flash</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>ARMCM4_FP</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.0.0</PackID>
+          <PackID>ARM.CMSIS.5.5.1</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IROM(0x00000000,0x00040000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -183,6 +184,7 @@
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>2</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -322,7 +324,8 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -333,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>CORE_M4 IPC_MASTER PIXY KEIL</Define>
+              <Define>CORE_M4 IPC_MASTER PIXY KEIL USE_LINE_MODULE</Define>
               <Undefine></Undefine>
-              <IncludePath>., inc, ..\libpixy_m4\inc, ..\..\common\inc, ..\common\inc</IncludePath>
+              <IncludePath>.;inc;..\libpixy_m4\inc;..\common\inc;..\..\common\inc;.\src\zbar\include;.\src\zbar\zbar;.\src\zbar\zbar\decoder;.\src\zbar\zbar\qrcode</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -378,6 +381,75 @@
       <Groups>
         <Group>
           <GroupName>Source Code</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>2</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath>.\src\zbar\include;.\src\zbar\zbar</IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <uClangAs>2</uClangAs>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
           <Files>
             <File>
               <FileName>analogdig.cpp</FileName>
@@ -393,11 +465,6 @@
               <FileName>conncomp.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\conncomp.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>exec.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\exec.cpp</FilePath>
             </File>
             <File>
               <FileName>i2c.cpp</FileName>
@@ -423,6 +490,11 @@
               <FileName>spi.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\spi.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>exec.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\exec.cpp</FilePath>
             </File>
             <File>
               <FileName>uart.cpp</FileName>
@@ -484,6 +556,81 @@
               <FileType>4</FileType>
               <FilePath>..\libpixy_m4\libpixy_m4.lib</FilePath>
             </File>
+            <File>
+              <FileName>config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\config.c</FilePath>
+            </File>
+            <File>
+              <FileName>convert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\convert.c</FilePath>
+            </File>
+            <File>
+              <FileName>decoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>image.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\image.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_scanner.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\img_scanner.c</FilePath>
+            </File>
+            <File>
+              <FileName>scanner.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\scanner.c</FilePath>
+            </File>
+            <File>
+              <FileName>symbol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\symbol.c</FilePath>
+            </File>
+            <File>
+              <FileName>qr_finder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\qr_finder.c</FilePath>
+            </File>
+            <File>
+              <FileName>bch15_5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\bch15_5.c</FilePath>
+            </File>
+            <File>
+              <FileName>binarize.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\binarize.c</FilePath>
+            </File>
+            <File>
+              <FileName>isaac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\isaac.c</FilePath>
+            </File>
+            <File>
+              <FileName>qrdec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\qrdec.c</FilePath>
+            </File>
+            <File>
+              <FileName>qrdectxt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\qrdectxt.c</FilePath>
+            </File>
+            <File>
+              <FileName>rs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\rs.c</FilePath>
+            </File>
+            <File>
+              <FileName>util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\util.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -496,11 +643,12 @@
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>ARMCM4_FP</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.0.0</PackID>
+          <PackID>ARM.CMSIS.5.5.1</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IROM(0x00000000,0x00040000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -668,6 +816,7 @@
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>2</RvdsVP>
+            <RvdsMve>0</RvdsMve>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -808,6 +957,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -880,11 +1030,6 @@
               <FilePath>.\src\conncomp.cpp</FilePath>
             </File>
             <File>
-              <FileName>exec.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\exec.cpp</FilePath>
-            </File>
-            <File>
               <FileName>i2c.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\i2c.cpp</FilePath>
@@ -908,6 +1053,11 @@
               <FileName>spi.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\spi.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>exec.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\exec.cpp</FilePath>
             </File>
             <File>
               <FileName>uart.cpp</FileName>
@@ -968,6 +1118,81 @@
               <FileName>libpixy_m4.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\libpixy_m4\libpixy_m4.lib</FilePath>
+            </File>
+            <File>
+              <FileName>config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\config.c</FilePath>
+            </File>
+            <File>
+              <FileName>convert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\convert.c</FilePath>
+            </File>
+            <File>
+              <FileName>decoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>image.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\image.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_scanner.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\img_scanner.c</FilePath>
+            </File>
+            <File>
+              <FileName>scanner.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\scanner.c</FilePath>
+            </File>
+            <File>
+              <FileName>symbol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\symbol.c</FilePath>
+            </File>
+            <File>
+              <FileName>qr_finder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\qr_finder.c</FilePath>
+            </File>
+            <File>
+              <FileName>bch15_5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\bch15_5.c</FilePath>
+            </File>
+            <File>
+              <FileName>binarize.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\binarize.c</FilePath>
+            </File>
+            <File>
+              <FileName>isaac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\isaac.c</FilePath>
+            </File>
+            <File>
+              <FileName>qrdec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\qrdec.c</FilePath>
+            </File>
+            <File>
+              <FileName>qrdectxt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\qrdectxt.c</FilePath>
+            </File>
+            <File>
+              <FileName>rs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\rs.c</FilePath>
+            </File>
+            <File>
+              <FileName>util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\qrcode\util.c</FilePath>
             </File>
           </Files>
         </Group>

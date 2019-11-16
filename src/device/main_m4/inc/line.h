@@ -12,7 +12,7 @@
 //
 // end license header
 //
-
+#if USE_LINE_MODULE
 #ifndef _LINE_H
 #define _LINE_H
 
@@ -336,4 +336,5 @@ int line_legoLineData(uint8_t *buf, uint32_t buflen);
 
 int32_t line_streamEdgesLines(const uint8_t &bitmap);
 
+#endif
 #endif

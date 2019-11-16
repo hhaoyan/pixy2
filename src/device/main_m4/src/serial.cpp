@@ -238,6 +238,7 @@ uint16_t lego_getData(uint8_t *buf, uint32_t buflen)
 #endif
 		return 6;
 	}
+#if USE_LINE_MODULE
 	else if (c==0x5a)
 	{
 		if (serial->receive((uint8_t *)&turn, 1)==1 && 
@@ -275,6 +276,7 @@ uint16_t lego_getData(uint8_t *buf, uint32_t buflen)
 			return 4;
 		}
 	}
+#endif
 	else if (c==0x5e) // get RGB
 	{
 		if (serial->receive(buf, 3)==3 && 

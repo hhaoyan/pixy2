@@ -91,7 +91,9 @@ int main(void)
 	rcs_init();
 #endif
 	cc_init(g_chirpUsb);
+#if USE_LINE_MODULE
 	line_init(g_chirpUsb);
+#endif
 	ser_init(g_chirpUsb);
 
 
