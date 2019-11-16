@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>CORE_M4 IPC_MASTER PIXY KEIL USE_LINE_MODULE</Define>
+              <Define>CORE_M4 IPC_MASTER PIXY KEIL USE_QRCODE</Define>
               <Undefine></Undefine>
               <IncludePath>.;inc;..\libpixy_m4\inc;..\common\inc;..\..\common\inc;.\src\zbar\include;.\src\zbar\zbar;.\src\zbar\zbar\decoder;.\src\zbar\zbar\qrcode</IncludePath>
             </VariousControls>
@@ -630,6 +630,26 @@
               <FileName>util.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\zbar\zbar\qrcode\util.c</FilePath>
+            </File>
+            <File>
+              <FileName>ean.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\ean.c</FilePath>
+            </File>
+            <File>
+              <FileName>i25.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\i25.c</FilePath>
+            </File>
+            <File>
+              <FileName>code39.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\code39.c</FilePath>
+            </File>
+            <File>
+              <FileName>code128.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\code128.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1193,6 +1213,26 @@
               <FileName>util.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\zbar\zbar\qrcode\util.c</FilePath>
+            </File>
+            <File>
+              <FileName>ean.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\ean.c</FilePath>
+            </File>
+            <File>
+              <FileName>i25.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\i25.c</FilePath>
+            </File>
+            <File>
+              <FileName>code39.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\code39.c</FilePath>
+            </File>
+            <File>
+              <FileName>code128.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\zbar\zbar\decoder\code128.c</FilePath>
             </File>
           </Files>
         </Group>
