@@ -177,6 +177,15 @@ extern void _vStackTop(void);
 // This relies on the linker script to place at correct location in memory.
 //
 //*****************************************************************************
+
+extern void (* const g_spiVectors[])(void);
+__attribute__ ((section(".spi_vectors")))
+void (* const g_spiVectors[])(void) = {
+    // Core Level - CM4
+    &_vStackTop,                    // The initial stack pointer
+    ResetISR,                       // The reset handler
+};
+
 extern void (* const g_pfnVectors[])(void);
 __attribute__ ((section(".isr_vector")))
 void (* const g_pfnVectors[])(void) = {
@@ -273,7 +282,7 @@ void (* const g_pfnVectors[])(void) = {
 // ResetISR() function in order to cope with MCUs with multiple banks of
 // memory.
 //*****************************************************************************
-__attribute__((section(".after_vectors")))
+__attribute__((section(".reset_isr")))
 void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
     unsigned int *pulDest = (unsigned int*) start;
     unsigned int *pulSrc = (unsigned int*) romstart;
@@ -282,7 +291,7 @@ void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
         *pulDest++ = *pulSrc++;
 }
 
-__attribute__ ((section(".after_vectors")))
+__attribute__ ((section(".reset_isr")))
 void bss_init(unsigned int start, unsigned int len) {
     unsigned int *pulDest = (unsigned int*) start;
     unsigned int loop;
@@ -308,6 +317,7 @@ extern unsigned int __bss_section_table_end;
 // library.
 //
 //*****************************************************************************
+__attribute__ ((section(".reset_isr")))
 void ResetISR(void) {
 
 // *************************************************************

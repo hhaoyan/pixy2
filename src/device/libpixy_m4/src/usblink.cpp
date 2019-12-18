@@ -26,7 +26,7 @@
 
 #define GBUF_SIZE 64
 
-uint8_t g_buf[GBUF_SIZE];
+uint8_t g_buf[GBUF_SIZE] __attribute__ ((aligned (4)));
 uint32_t g_bufUsed = 0;
 
 USBLink::USBLink()

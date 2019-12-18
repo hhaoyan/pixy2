@@ -188,7 +188,7 @@ void exec_loop(void)
 	{
 		while(!g_run)
 			chirpService();
-		 	
+
 		if (g_program==0)
 			setup0();
 		else if (g_program==1)

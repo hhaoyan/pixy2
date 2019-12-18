@@ -172,7 +172,7 @@ ServoLoop::ServoLoop(uint8_t axis, uint32_t pgain, uint32_t dgain)
 	m_axis = axis;
 	m_pgain = pgain;
 	m_dgain = dgain;
-	m_prevError = 0x80000000;
+	m_prevError = (int32_t)0x80000000;
 	reset();
 }
 
@@ -180,7 +180,7 @@ void ServoLoop::update(int32_t error)
 {
 	int32_t vel;
 
-	if (m_prevError!=0x80000000)
+	if (m_prevError!=(int32_t)0x80000000)
 	{	
 		vel = (error*m_pgain + (error - m_prevError)*m_dgain)/1000;
 		m_pos += vel;

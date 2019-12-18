@@ -1,3 +1,7 @@
+build/*
+*.asm
+.DS_Store
+*.a
 *.exe
 *.o
 *.d

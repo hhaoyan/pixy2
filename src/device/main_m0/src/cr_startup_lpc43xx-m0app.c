@@ -348,13 +348,14 @@ ResetISR(void) {
     //
     // Copy the data sections from flash to SRAM.
     //
-  unsigned int LoadAddr, ExeAddr, SectionLen;
+  /*unsigned int LoadAddr, ExeAddr, SectionLen;
   unsigned int *SectionTableAddr;
 
   // Load base address of Global Section Table
   SectionTableAddr = &__data_section_table;
 
     // Copy the data sections from flash to SRAM.
+  // No need to copy data sections as main_m4 does this for us.
   while (SectionTableAddr < &__data_section_table_end) {
     LoadAddr = *SectionTableAddr++;
     ExeAddr = *SectionTableAddr++;
@@ -367,7 +368,7 @@ ResetISR(void) {
     ExeAddr = *SectionTableAddr++;
     SectionLen = *SectionTableAddr++;
     bss_init(ExeAddr, SectionLen);
-  }
+  }*/
 
 // **********************************************************
 // No need to call SystemInit() here, as master CM4 cpu will
@@ -383,7 +384,7 @@ ResetISR(void) {
 
 #if defined (__REDLIB__)
   // Call the Redlib library, which in turn calls main()
-  __main() ;
+  main() ;
 #else
   main();
 #endif

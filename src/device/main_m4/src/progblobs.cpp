@@ -426,7 +426,7 @@ int ProgBlobs::staticLoop(char *status)
 		else
 			SM_OBJECT->stream = 1; // capture raw frames in addition to blocks
 	}
-	
+
 	// create blobs
 	g_blobs->sendDetectedPixels(m_view==VIEW_BLOCKS_VIDEO_PIXELS && renderState);
 	if (g_blobs->blobify()<0)
@@ -453,7 +453,7 @@ int ProgBlobs::staticLoop(char *status)
 	else // no background, render blobs image by itself
 		//cc_sendBlobs(g_chirpUsb, blobs, numBlobs, ccBlobs, numCCBlobs, RENDER_FLAG_FLUSH);
 		cc_sendBlobs(g_chirpUsb, blobsList, RENDER_FLAG_FLUSH);
-				
+	 
 	cc_setLED();
 			
 	if (SM_OBJECT->stream)

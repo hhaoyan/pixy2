@@ -1987,10 +1987,12 @@ int16_t voteCodes(BarCodeCluster *cluster)
         }
     }
 
-    if (max<=1) // no valid codes, and you need at least 2 votes
+    if (max<=1){ // no valid codes, and you need at least 2 votes
         return -2;
-	if ((max<<8)/cluster->m_n<g_minVotingThreshold)
+    }
+	if ((max<<8)/cluster->m_n<g_minVotingThreshold){
 		return -3;
+	}
     return vals[maxIndex];
 }
 

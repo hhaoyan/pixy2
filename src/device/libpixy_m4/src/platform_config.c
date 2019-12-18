@@ -166,6 +166,7 @@ static void delayus(uint32_t us)
 		for (j=0; j<38; j++);
 }
 
+extern void TIMER1_IRQHandler(void);
 void TIMER1_IRQHandler(void)
 {
 	TIM_ClearIntPending(LPC_TIMER1, TIM_MR0_INT);
@@ -181,7 +182,7 @@ void clockInit(void)
 	CGU_SetXTALOSC(__CRYSTAL);
 	CGU_EnableEntity(CGU_CLKSRC_XTAL_OSC, ENABLE);
 	CGU_EntityConnect(CGU_CLKSRC_XTAL_OSC, CGU_BASE_M3);
-	
+
 	/* Set PL160M 12*1 = 12 MHz */
 	CGU_EntityConnect(CGU_CLKSRC_XTAL_OSC, CGU_CLKSRC_PLL1);
 //	CGU_EntityConnect(CGU_CLKSRC_IRC, CGU_CLKSRC_PLL1);
@@ -233,13 +234,13 @@ void clockInit(void)
 	TIM_ConfigMatch(LPC_TIMER1, &TIM_MatchConfigStruct);
 	TIM_Init(LPC_TIMER1, TIM_TIMER_MODE,&TIM_ConfigStruct);
 	TIM_Cmd(LPC_TIMER1, ENABLE);
-	
+
 	/* Enable interrupt for timer 0 */
 	NVIC_EnableIRQ(TIMER1_IRQn);
-	__enable_irq();
 
+	__enable_irq();
 	CGU_SetPLL1(17);
-	__WFI();
+	// __WFI();
 
 	NVIC_DisableIRQ(TIMER1_IRQn);
 	TIM_Cmd(LPC_TIMER1, DISABLE);

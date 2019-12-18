@@ -1,25 +1,30 @@
-INCLUDE "main_m4_SPIFI_lib.ld"
+/*INCLUDE "main_m4_SPIFI_lib.ld"*/
 
-GROUP(libcr_nohost.a libcr_eabihelpers.a)
+GROUP(
+ libgcc.a
+ libc.a
+ libstdc++.a
+ libm.a
+ )
 
 MEMORY
 {
   /* Define each memory region */
-  SPIflash (rx) : ORIGIN = 0x14000000, LENGTH = 0x20000 /* 128K bytes */
-  RamLoc128 (rwx) : ORIGIN = 0x10000000, LENGTH = 0x20000 /* 128K bytes */
-  RamAHB32 (rwx) : ORIGIN = 0x20000000, LENGTH = 0x8000 /* 32K bytes */
+  SPIflash (rx) : ORIGIN = 0x14000000, LENGTH = 0x40000 /* 128K bytes */
+  RamLoc128 (rwx) : ORIGIN = 0x10000000, LENGTH = 0x40000 /* 128K bytes */
+  RamAHB32 (rwx) : ORIGIN = 0x20000000, LENGTH = 0xf000 /* 32K bytes */
   RamLoc72 (rwx) : ORIGIN = 0x10080000, LENGTH = 0x12000 /* 72K bytes */
-  RamAHB16 (rwx) : ORIGIN = 0x20008000, LENGTH = 0x4000 /* 16K bytes */
+  RamAHB16 (rwx) : ORIGIN = 0x20008000, LENGTH = 0x8000 /* 16K bytes */
   RamAHB_ETB16 (rwx) : ORIGIN = 0x2000c000, LENGTH = 0x4000 /* 16K bytes */
 
 
 }
   /* Define a symbol for the top of each memory region */
-  __top_SPIflash = 0x14000000 + 0x20000;
-  __top_RamLoc128 = 0x10000000 + 0x20000;
-  __top_RamAHB32 = 0x20000000 + 0x8000;
+  __top_SPIflash = 0x14000000 + 0x40000;
+  __top_RamLoc128 = 0x10000000 + 0x40000;
+  __top_RamAHB32 = 0x20000000 + 0xf000;
   __top_RamLoc72 = 0x10080000 + 0x12000;
-  __top_RamAHB16 = 0x20008000 + 0x4000;
+  __top_RamAHB16 = 0x20008000 + 0x8000;
   __top_RamAHB_ETB16 = 0x2000c000 + 0x4000;
 
 ENTRY(ResetISR)

@@ -19,7 +19,7 @@ OUT_DIR=./lib
 
 # Enumerating of every *.cpp as *.o and using that as dependency
 $(OUT_FILE_NAME): $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(wildcard *.cpp)) $(OBJ_DIR)/chirp.o
-	ar -r -o $(OUT_DIR)/$@ $^
+	ar -r $(OUT_DIR)/$@ $^
 
 $(OBJ_DIR)/chirp.o: ../../../common/src/chirp.cpp
 	$(CC) -c $(INC) $(CFLAGS) -o $(OBJ_DIR)/chirp.o ../../../common/src/chirp.cpp  

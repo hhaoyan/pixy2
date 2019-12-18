@@ -21,6 +21,7 @@
 #include "assembly.h"
 
 //#define RLTEST
+#define KEIL
 
 _ASM_FUNC void lineProcessedRL0A(uint32_t *gpio, uint8_t *memory, uint32_t width) // width in bytes
 { 

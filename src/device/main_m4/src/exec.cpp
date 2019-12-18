@@ -774,7 +774,7 @@ int exec_progSetup(uint8_t progIndex)
 			cprintf(0, "Setup:\n");	
 			exec_testMemory();
 		}
-		
+
 		g_prog = (*ProgTableUtil::m_progTable[progIndex].m_create)(progIndex);
 		if (g_prog==NULL) // out of memory!
 			return -2;

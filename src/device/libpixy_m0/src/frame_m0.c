@@ -23,6 +23,7 @@
 
 //#define DEBUG_SYNC
 #define CAM_PCLK_MASK   0x2000
+#define KEIL
 
 #define ALIGN(v, n)  ((uint32_t)v&((n)-1) ? ((uint32_t)v&~((n)-1))+(n) : (uint32_t)v)
 
@@ -814,7 +815,9 @@ int32_t setEdgeParams(uint16_t *dist, uint16_t *thresh, uint16_t *hThresh)
 
 int frame_init(void)
 {
+#if 0
 	uint32_t line, frame=0;
+#endif
 
 	chirpSetProc("getFrame", (ProcPtr)getFrame);
 	chirpSetProc("getEdges", (ProcPtr)getEdges);

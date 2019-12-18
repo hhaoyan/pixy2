@@ -170,10 +170,10 @@ typedef uint32_t (*ProcPtr)(Chirp *);
 
 struct ProcModule
 {
-    char *procName;
+    const char *procName;
     ProcPtr procPtr;
     uint8_t argTypes[CRP_MAX_ARGS];
-    char *procInfo;
+    const char *procInfo;
 };
 
 struct ProcTableExtension

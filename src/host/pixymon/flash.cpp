@@ -92,6 +92,9 @@ void Flash::program(const QString &filename)
     while(1)
     {
         res = reader->read((unsigned char *)m_buf, m_sectorSize, &addr, &len);
+        // Fix weird bug that Pixy2 stops when buffer is too small?
+        if(len<0x300)
+            len = 0x300;
         if (len)
         {
             if (m_chirp.callSync(m_programProc, UINT32(addr), UINTS8(len, m_buf), END_OUT_ARGS,

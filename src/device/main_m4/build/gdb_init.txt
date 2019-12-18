@@ -1,0 +1,2 @@
+target remote localhost:9000
+set $sp=0x20008000

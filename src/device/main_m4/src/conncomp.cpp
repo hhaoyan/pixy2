@@ -424,8 +424,8 @@ int32_t cc_setLabel(const uint32_t &signum, const char *label, Chirp *chirp)
 	if (signum<1 || signum>76767) // can't get any greater than 76767
 		return -1;
 
-	sprintf(id, "Signature label %d", signum);
-	sprintf(desc, "@c Signature_Labels Sets the label for objects that match signature %d.", signum);
+	sprintf(id, "Signature label %lu", signum);
+	sprintf(desc, "@c Signature_Labels Sets the label for objects that match signature %lu.", signum);
 	strcpy(label2, label); // copy into new memory since chirp uses same memory for receiving and sending messages
 	if (prm_add(id, progFlags, PRM_PRIORITY_3, desc, STRING(label2), END)<0) // create if it doesn't exist
 		prm_set(id, STRING(label2), END); // if it's already there, set it...

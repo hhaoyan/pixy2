@@ -321,7 +321,7 @@ uint32_t prm_nextFree()
 	for (rec=(ParamRecord *)PRM_FLASH_LOC; rec->crc!=0xffff && rec<(ParamRecord *)PRM_ENDREC; rec++);
 
 	if (rec>=(ParamRecord *)PRM_ENDREC)
-		return NULL;
+		return 0;
 	return (uint32_t)rec; 
 }
 
@@ -528,7 +528,7 @@ int prm_add(const char *id, uint32_t flags, uint32_t priority, const char *desc,
 	rec->len = len;
 	rec->crc = prm_crc(rec); 
 
-	if ((freeLoc=prm_nextFree())==NULL)
+	if ((freeLoc=prm_nextFree())==0)
 		while(1); //return -4;
 	
 	printf("add %s\n", id);

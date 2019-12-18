@@ -1,0 +1,6 @@
+.qmake.stash
+moc_*
+ui_*
+qrc_*
+Makefile
+PixyMon.app/
